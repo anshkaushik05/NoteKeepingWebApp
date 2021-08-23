@@ -36,6 +36,8 @@ AddNoteBtn.addEventListener("click",()=>{
     
 })
 
+
+//To show All the notes added in local Storage
 function showAllNotes(){
     let NotesStorage =localStorage.getItem("Notes");
     var NotesArray=JSON.parse(NotesStorage);
@@ -49,11 +51,24 @@ function showAllNotes(){
             Noteshtml+=`<span class="card-body my-2 mx-2" style="width: 20rem; background: #e6e6e6; border-radius:0.5vw;">
                 <h5 class="card-title">Notes ${index +1} </h5>
                 <p class="card-text">${element}</p>
-                <button  class="btn btn-primary">Delete Note</button>
+                <button id=${index} onclick="DeleteNote(${index})" class="btn btn-primary">Delete Note</button>
             </span>`;
         });
         allNotes.innerHTML=Noteshtml;
-
-
     }
+}
+
+//function to Delete Existing Notes
+function DeleteNote(index){
+    let NotesStorage =localStorage.getItem("Notes");
+    var NotesArray=JSON.parse(NotesStorage);
+
+    //deleting from Data Array
+    NotesArray.splice(index,1);
+
+    //updating local Storage
+    localStorage.setItem("Notes",JSON.stringify(NotesArray));
+
+    //Updating Web Page
+    showAllNotes();
 }
