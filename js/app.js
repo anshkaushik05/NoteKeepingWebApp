@@ -48,7 +48,7 @@ function showAllNotes(){
         var Noteshtml="";
         NotesArray.forEach( function(element ,index){
 
-            Noteshtml+=`<span class="card-body my-2 mx-2" style="width: 20rem; background: #e6e6e6; border-radius:0.5vw;">
+            Noteshtml+=`<span class="noteCard card-body my-2 mx-2" style="width: 20rem; background: #e6e6e6; border-radius:0.5vw;">
                 <h5 class="card-title">Notes ${index +1} </h5>
                 <p class="card-text">${element}</p>
                 <button id=${index} onclick="DeleteNote(${index})" class="btn btn-primary">Delete Note</button>
@@ -72,3 +72,21 @@ function DeleteNote(index){
     //Updating Web Page
     showAllNotes();
 }
+
+//search functionality
+var search= document.getElementById("SearchTxt");
+search.addEventListener("input",function(){
+    let inputVal=search.value.toLowerCase();
+    // let NotesStorage =localStorage.getItem("Notes");
+    // var NotesArray=JSON.parse(NotesStorage);
+    let noteCards = document.getElementsByClassName('noteCard');
+    console.log(search.value);
+    Array.from(noteCards).forEach((value)=>{
+        let cardTxt = value.getElementsByTagName("p")[0].innerText;
+        if(cardTxt.toLowerCase().includes(inputVal))
+            value.style.display="block";
+        else
+            value.style.display="none";
+    })
+    
+})
